@@ -10,6 +10,7 @@ tk.title("Tic Tac Toe")
 Turn = "x"
 countForTie = 0
 winner = " "
+play = True
 
 
 
@@ -23,99 +24,98 @@ def ai_pick():
     buttons = [button1,button2,button3,button4,button5,button6,button7,button8,button9]
 
     players= ['O','X']
+    if play == True:
+        for player in players:
+            button_check = 1
+            for i in buttons:
 
-    for player in players:
-        button_check = 1
-        for i in buttons:
+                if i["text"] == ' ':
 
-            if i["text"] == ' ':
+                    if i not in available_buttons:
+                        available_buttons.append(i)
 
-                if i not in available_buttons:
-                    available_buttons.append(i)
+                    i["text"] = player
 
-                i["text"] = player
+                    if button1['text'] == player and button2['text'] == player and button3['text'] == player:
+                        i["text"] = ' '
+                        button_pick = button_check
+                        w_Comb = True
+                        break
+                    elif button4['text'] == player and button5['text'] == player and button6['text'] == player:
+                        i["text"] = ' '
+                        button_pick = button_check
+                        w_Comb = True
+                        break
+                    elif button7['text'] == player and button8['text'] == player and button9['text'] == player:
+                        i["text"] = ' '
+                        button_pick = button_check
+                        w_Comb = True
+                        break
+                    elif button1['text'] == player and button5['text'] == player and button9['text'] == player:
+                        i["text"] = ' '
+                        button_pick = button_check
+                        w_Comb = True
+                        break
+                    elif button3['text'] == player and button5['text'] == player and button7['text'] == player:
+                        i["text"] = ' '
+                        button_pick = button_check
+                        w_Comb = True
+                        break
+                    elif button1['text'] == player and button4['text'] == player and button7['text'] == player:
+                        i["text"] = ' '
+                        button_pick = button_check
+                        w_Comb = True
+                        break
+                    elif button2['text'] == player and button5['text'] == player and button8['text'] == player:
+                        i["text"] = ' '
+                        button_pick = button_check
+                        w_Comb = True
+                        break
+                    elif button3['text'] == player and button6['text'] == player and button9['text'] == player:
+                        i["text"] = ' '
+                        button_pick = button_check
+                        w_Comb = True
+                        break
+                    else:
+                        i["text"] = " "
 
-                if button1['text'] == player and button2['text'] == player and button3['text'] == player:
-                    i["text"] = ' '
-                    button_pick = button_check
-                    w_Comb = True
+                if w_Comb == True:
                     break
-                elif button4['text'] == player and button5['text'] == player and button6['text'] == player:
-                    i["text"] = ' '
-                    button_pick = button_check
-                    w_Comb = True
-                    break
-                elif button7['text'] == player and button8['text'] == player and button9['text'] == player:
-                    i["text"] = ' '
-                    button_pick = button_check
-                    w_Comb = True
-                    break
-                elif button1['text'] == player and button5['text'] == player and button9['text'] == player:
-                    i["text"] = ' '
-                    button_pick = button_check
-                    w_Comb = True
-                    break
-                elif button3['text'] == player and button5['text'] == player and button7['text'] == player:
-                    i["text"] = ' '
-                    button_pick = button_check
-                    w_Comb = True
-                    break
-                elif button1['text'] == player and button4['text'] == player and button7['text'] == player:
-                    i["text"] = ' '
-                    button_pick = button_check
-                    w_Comb = True
-                    break
-                elif button2['text'] == player and button5['text'] == player and button8['text'] == player:
-                    i["text"] = ' '
-                    button_pick = button_check
-                    w_Comb = True
-                    break
-                elif button3['text'] == player and button6['text'] == player and button9['text'] == player:
-                    i["text"] = ' '
-                    button_pick = button_check
-                    w_Comb = True
-                    break
-                else:
-                    i["text"] = " "
+                button_check += 1
 
             if w_Comb == True:
                 break
-            button_check += 1
 
-        if w_Comb == True:
-            break
-    else:
+    if w_Comb == False and play == True:
 
-        if w_Comb == False:
+        button_number= available_buttons[random.randint(0, len(available_buttons)-1)]
 
-            button_number= available_buttons[random.randint(0, len(available_buttons)-1)]
+        if button_number ==button1:
+            button_pick = 1
 
-            if button_number ==button1:
-                button_pick = 1
+        elif button_number == button2:
+            button_pick = 2
 
-            elif button_number == button2:
-                button_pick = 2
+        elif button_number == button3:
+            button_pick = 3
 
-            elif button_number == button3:
-                button_pick = 3
+        elif button_number == button4:
+            button_pick = 4
 
-            elif button_number == button4:
-                button_pick = 4
+        elif button_number == button5:
+            button_pick = 5
 
-            elif button_number == button5:
-                button_pick = 5
+        elif button_number == button6:
+            button_pick = 6
 
-            elif button_number == button6:
-                button_pick = 6
+        elif button_number == button7:
+            button_pick = 7
 
-            elif button_number == button7:
-                button_pick = 7
+        elif button_number == button8:
+            button_pick = 8
 
-            elif button_number == button8:
-                button_pick = 8
-
-            elif button_number == button9:
-                button_pick = 9
+        elif button_number == button9:
+            button_pick = 9
 
 
     return button_pick
@@ -146,36 +146,38 @@ def AI_V1():
     Turn = "x"
     countForTie += 1
 
-
 def end_text():
     """Text Displayed in the messagebox after the game is finished"""
     global winner
 
     if winner == "X":
-        tkinter.messagebox.showinfo("Tic-Tac-Toe", "You Win! \n Press \"Ok\" To See The Final Results!")
+        tkinter.messagebox.showinfo("Tic-Tac-Toe", "You Win!")
 
     elif winner == "O":
-        tkinter.messagebox.showinfo("Tic-Tac-Toe", "AI Win! \n Press \"Ok\" To See The Final Results!")
+        tkinter.messagebox.showinfo("Tic-Tac-Toe", "AI Wins!")
 
     elif winner == "tie":
-        tkinter.messagebox.showinfo("Tic-Tac-Toe", "Its A Tie! \n Press \"Ok\" To See The Final Results!")
+        tkinter.messagebox.showinfo("Tic-Tac-Toe", "Its A Tie!")
+
+    mainloop.stop()
 
 #Main Loop
 def startGame(buttons):
     global Turn, countForTie, winner
-
     if buttons["text"] == " " and Turn == 'x':
         buttons["text"] = "X"
         Turn = 'o'
         countForTie += 1
-
+        checkforwin()
+        buttons.invoke()
     #AI
     elif Turn == "o":
+        checkforwin()
         AI_V1()
+        checkforwin()
 
-
-
-
+def checkforwin():
+    global winner, play
     #Winning Combinations for X
     if button1['text'] == 'X' and button2['text'] == 'X' and button3['text'] == 'X':
         button1["fg"] = "#32CD32"
@@ -188,6 +190,7 @@ def startGame(buttons):
         button8.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "X"
+        play=False
         end_text()
 
     elif button4['text'] == 'X' and button5['text'] == 'X' and button6['text'] == 'X':
@@ -201,6 +204,7 @@ def startGame(buttons):
         button8.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "X"
+        play = False
         end_text()
 
     elif button7['text'] == 'X' and button8['text'] == 'X' and button9['text'] == 'X':
@@ -214,6 +218,7 @@ def startGame(buttons):
         button8["fg"] = "#32CD32"
         button9["fg"] = "#32CD32"
         winner = "X"
+        play = False
         end_text()
 
     elif button1['text'] == 'X' and button5['text'] == 'X' and button9['text'] == 'X':
@@ -227,6 +232,7 @@ def startGame(buttons):
         button7.configure(state=DISABLED)
         button8.configure(state=DISABLED)
         winner = "X"
+        play = False
         end_text()
 
     elif button3['text'] == 'X' and button5['text'] == 'X' and button7['text'] == 'X':
@@ -240,6 +246,7 @@ def startGame(buttons):
         button8.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "X"
+        play = False
         end_text()
 
     elif button1['text'] == 'X' and button4['text'] == 'X' and button7['text'] == 'X':
@@ -253,6 +260,7 @@ def startGame(buttons):
         button8.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "X"
+        play = False
         end_text()
 
     elif button2['text'] == 'X' and button5['text'] == 'X' and button8['text'] == 'X':
@@ -266,6 +274,7 @@ def startGame(buttons):
         button7.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "X"
+        play = False
         end_text()
 
     elif button3['text'] == 'X' and button6['text'] == 'X' and button9['text'] == 'X':
@@ -279,6 +288,7 @@ def startGame(buttons):
         button7.configure(state=DISABLED)
         button8.configure(state=DISABLED)
         winner = "X"
+        play = False
         end_text()
 
 
@@ -294,6 +304,7 @@ def startGame(buttons):
         button8.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "tie"
+        play = False
         end_text()
 
     # Winning Combinations for O
@@ -308,6 +319,7 @@ def startGame(buttons):
         button8.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "O"
+        play = False
         end_text()
 
     elif button4['text'] == 'O' and button5['text'] == 'O' and button6['text'] == 'O':
@@ -321,6 +333,7 @@ def startGame(buttons):
         button8.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "O"
+        play = False
         end_text()
 
     elif button7['text'] == 'O' and button8['text'] == 'O' and button9['text'] == 'O':
@@ -334,6 +347,7 @@ def startGame(buttons):
         button8["fg"] = "#32CD32"
         button9["fg"] = "#32CD32"
         winner = "O"
+        play = False
         end_text()
 
     elif button1['text'] == 'O' and button5['text'] == 'O' and button9['text'] == 'O':
@@ -347,6 +361,7 @@ def startGame(buttons):
         button7.configure(state=DISABLED)
         button8.configure(state=DISABLED)
         winner = "O"
+        play = False
         end_text()
 
     elif button3['text'] == 'O' and button5['text'] == 'O' and button7['text'] == 'O':
@@ -360,6 +375,7 @@ def startGame(buttons):
         button8.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "O"
+        play = False
         end_text()
 
     elif button1['text'] == 'O' and button4['text'] == 'O' and button7['text'] == 'O':
@@ -373,6 +389,7 @@ def startGame(buttons):
         button8.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "O"
+        play = False
         end_text()
 
     elif button2['text'] == 'O' and button5['text'] == 'O' and button8['text'] == 'O':
@@ -386,6 +403,7 @@ def startGame(buttons):
         button7.configure(state=DISABLED)
         button9.configure(state=DISABLED)
         winner = "O"
+        play = False
         end_text()
 
     elif button3['text'] == 'O' and button6['text'] == 'O' and button9['text'] == 'O':
@@ -399,6 +417,7 @@ def startGame(buttons):
         button7.configure(state=DISABLED)
         button8.configure(state=DISABLED)
         winner = "O"
+        play = False
         end_text()
 
 #Making the Buttons
